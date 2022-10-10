@@ -4,7 +4,8 @@ Cuenta con varias pantallas: SplashSceen, Login, Nuevo registro y registro cread
 Todas hechas con Html5, css3 y vanilla JS. <br>
 Del Lado del back usa php y Mysql.<br>
 
+Puedes ver una demo del apk desde esta Aquí : https://github.com/duji100/Miapp/blob/main/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+<br><br>
 <b>#NOTA:</b><br>
 Por motivos personales no está totalmente completada.
-
 
