@@ -13,4 +13,4 @@ muni = Amanalco<br>
 </b>
 <br>
 <b>#NOTA:</b><br>
-Por motivos personales no está totalmente completada.
+Por motivos de falta de tiempo no está totalmente optimizada.
