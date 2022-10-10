@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+       <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <title>MiApp</title>
+        <script src="js/sweetalert2.all.min.js"></script>
+
+        <style type="text/css">
+            
+            .logo {
+                background:#810edf !important;
+                font-size: 20px;
+                height: 10%;
+                color: white;
+                font-style: oblique;
+                font-weight: 700;
+                display: flex;
+                flex-direction: row;
+                align-content: center;
+                justify-content: space-between;
+                align-items: center;
+                padding-left: 3%;
+                padding-right: 3%;
+            }
+
+            #wait{
+                background: #000000e3;
+                position: fixed;
+                width: 100vw;
+                height: 100vh;
+                z-index: 99999999999999999;
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                display: none;
+                padding-top: 50%;
+
+            }
+
+            .loader {
+              border: 16px solid #f3f3f3;
+                border-top: 16px solid #3498db;
+                border-radius: 50%;
+                width: 80px;
+                margin-bottom: 25px;
+                height: 80px;
+                animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+
+            input { background:#dcdcdc; color: black; }
+
+        </style>
+      </head>
+
+      <div id="wait"><center><span><div class="loader"></div></span><span style="font-size: 24px;color: white;font-weight: 700;
+">Imagen a Binario</span></center></div>
+    <body style="background:#ffffff !important; color:black !important;">
+
+        <div class="logo"> 
+     <a href="app.html"><img id="atras" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAACKElEQVRoge2YP2sUQRyG399FzlPQQhQDsVD8EIqFjQhirVjYiYWdlYWXPtjYWFr7BYL2/ukEIWAKsRAR/IOoEL29iAnmsdhFb/fm9nazc9mMzAPHwcze+/7emd2Z2ZMikUgkEmkRYAF40HYdjchCvAdou5ZtA8wD74DNYIMUQwQZxBUiuCCTQgQVpCzEbghiVS4CFiQ9l3RU0p4Jl50vkRhmn09m9qVWhRWZGqRiiKGkXyUyc9n3Xklbkl5JWpa0bGYvK1e7XUb2Ceft1JANIAHeANeBboghigyAr8CVkEMUAz0GjtSteewZodozMUs2JA0kXTCzF1V/1HG0nZF0WO2EkKSupEOSngDnGikBfWC4w7eViwQ49b+EWQOONQ1zm3RU2mQTWAHmple8+2cmAW6W1Vn1iNKXtChp/6RLJK3UGyL1JB2QNC/pZ6ZdtsAkko6b2beaPnmYMjMNdDvAaeAu8IF0L3GxDtxpFKJKGE/6HeAq8Bn3s5kAPR9eExcAL+L/PLrAPYfPd+CyT6OxmfEmnve55rgDHvk2uTU6Yl7F8z6XCjPzA6i0SNUx+TszXoXHfZZGwgyAk7Mw6QO/vQvnPQxYBbZId/qLszI6MRPhvMfZbFbWgRvFftfptzZm9taHzhSPZ0o33Z6kg8V+L0F2kPtKTyP7ih2hBXmo9M+LsVUrqCBmtibptasvqCAZq67GEIN8dDW29V7ehKdKXxsikUgkEvHGH1lnp0CJomL3AAAAAElFTkSuQmCC"></a>
+    
+    Nuevo Registro 
+    
+    <img onclick="reg()" id="reg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAEFUlEQVR4nO2aW2gdVRSG/2XTW7CGWqI1mqpFLCr1xQteQJHWtIgIVi1IhYIi4osF++yT6KsKRgtVtI8iFS8tiKgg1QYvBdvUG1RLai2lSht7SS+Jfj7MnDDZnZyc2WfvGUPmg0D2nNn/rH/Nbe29R6qpqampqampmaFYVQcGFkrqSZuHzOxYVbGUBnAD8DIwxPkMAS8B11cdZ3CABcDrwGiOcZdRoB+4sOq4gwD0ALtaMO6yB1hSdfxtAXQBv3iYb/AzcFHVPrwBPmjDfIP3qvbhBbAqgPkGK6v2UxhgZ8AEfBkrzih1ANAraSigPpKWmNnBQHrjXBBaMGW1wibXJK0KqDdOrARcM000oyVgcQTNyyJoRkvAuWmiGS0BhyNoHoqgGS0BgxE090bQjPYa7JL0p6TZgSRHJXWb2d+B9MaJcgWkgX4YUPL9GOajAiwDxgJUgWPAdVX78QJ4IUACnq/ahzfALGB7G+a3AbEe1OUAzAG2eJh/C5hTdfxBAAxYBxxowfgQ8GhZsZU6KwzMl3S/pIckLZfUm/70u6Q9krZK2mZmZ8qMa0ZTyhUAdEq6U9Ktkm6RdJWkhenfLEkjSsrnXyXtlvSVpB1mdrqM+KKQ3vcr0wfgCY+H4AlgbdU+vADuAb72MN3gCLCmjFiD3gLAxZI2S2on+D8k3WtmP+XoL5B0s6TLJXUouW2+N7MYo89iAHeQv+RV9MwvzdG+DfgIOJPT5x9gAHgYqGatk+ReH2nT/L/AfY7uXOCN9LdW+AK4tGzzdwOn2jQP8Jqj2wns8NA5AFxdlvnFJJdtu5wGehztd9rQGyT24irJa66dgU6WTY72gwX795OU2gOZbS/GTsCaQOYBVjjaPxTo+2qm3yLgXLp9BOiOmYBvApk/BczL6C4v0Hc/mUsdmM/EN8UTU/nwGmsDdykpaUMw6Ax+Wl0IRdJTZnYys+1ZSXOLaPlONvR59svjqNPuddoDSoqfFZL2Z7a/bWafNBok02bPOX2n/MCio/U4iwkX4LjTdj+I2GBmuyQJ6JO0U9KYpI2NHUhmjd7UxLMvSV1THdw3AcOe/fKY57SPOO1LGv+Y2T7gASVT5Nmvyp6RdHuOdpwSmeKvqWbsdrTXO7//RpPqDlgKnJxEuz9WAjqAHwMlYJSJT/Juzp9O/5acwoakFvm0ifbqKAlID34jMBwoCWsd7Xdz9tkOdDj7PdlEcx8QamVq0iQsw69ed/nY0b0WOJuz32bSER9wJc1PwCOteAgyfCT5uvMmJWv4PppIesXMzmY0H1fyZHf5TNJ3ktZJumISvU1m9rRHHP8vgI0UX17bQuxLv0yAPlr72PIvYPqf9TyA2cBjwFbgcMb0MPA5sIFkSX5mQLLc1ll1HDU1NTU1NdOc/wBbTHifS8C+wwAAAABJRU5ErkJggg==">
+    </div>
+
+    <p style="width: 94%;height: 14%;background: aliceblue;margin-left: 3%;font-weight: 500;">
+        
+        <span id="n" style="padding-left: 4%;margin-top: 8px;position: absolute;font-size: 15px;color: darkgrey;">Nombre Completo</span>
+        <input id="name" type="text" placeholder=" " style="width: 90%;margin-top: 35px;height: 50%;margin-left: 3%;padding-left: 10px;font-size: 25px;background: white;"> 
+    </p>
+
+
+    <p style="width: 94%;height: 14%;background: aliceblue;margin-left: 3%;font-weight: 500;">
+        
+        <span id="n" style="padding-left: 4%;margin-top: 8px;position: absolute;font-size: 15px;color: darkgrey;">Curp</span>
+        <input id="curp" type="text" placeholder="" style="width: 90%;margin-top: 35px;height: 50%;margin-left: 3%;padding-left: 10px;font-size: 25px;background: white;">
+    </p>
+
+
+    <p style="width: 94%;height: 13%;background: aliceblue;margin-left: 3%;font-weight: 500;">
+        <span id="n" style="padding-left: 4%;margin-top: 8px;position: absolute;font-size: 15px;color: darkgrey;">Foto1</span>
+        <input onclick="file(1)" id="b1" type="button" value="Cargar Archivo..." style="width: 92%;margin-top: 35px;height: 40%;margin-left: 3%;padding-left: 10px;font-size: 15px;font-weight: 600;">  
+    </p>
+
+
+    <p style="width: 94%;height: 13%;background: aliceblue;margin-left: 3%;font-weight: 500;">
+        <span id="n" style="padding-left: 4%;margin-top: 8px;position: absolute;font-size: 15px;color: darkgrey;">Foto2</span>
+        <input onclick="file(2)" id="b2" type="button" value="Cargar Archivo..." style="width: 92%;margin-top: 35px;height: 40%;margin-left: 3%;padding-left: 10px;font-size: 15px;font-weight: 600;">
+    </p>
+
+
+    <p style="width: 94%;height: 13%;background: aliceblue;margin-left: 3%;font-weight: 500;display: flex;flex-direction: row;justify-content: center;">
+        <span id="n" style="text-align: center;font-weight: 800;">
+            <input onclick="file(3)" id="b3" type="button" value="Cargar Archivo..." style="width: 90%;margin-top: 25px;height: 40%;margin-left: 3%;padding-left: 10px;font-size: 15px;font-weight: 600;">Imagen1</span>
+        <span id="n" style="text-align: center;font-weight: 800;">
+            <input onclick="file(4)" id="b4" type="button" value="Cargar Archivo..." style="width: 90%;margin-top: 25px;height: 40%;margin-left: 3%;padding-left: 10px;font-size: 15px;font-weight: 600;">Imagen2</span>
+    </p>
+
+
+    <p style="width: 94%;height: 13%;background: aliceblue;margin-left: 3%;font-weight: 500;">
+        <span id="n" style="padding-left: 4%;margin-top: 8px;position: absolute;font-size: 12px;color: darkgrey;">Extra (Max. 3 imagenes)</span>
+        <input onclick="file(5)" id="b5" type="button"  value="Cargar Archivo..." style="width: 92%;margin-top: 35px;height: 40%;margin-left: 3%;padding-left: 10px;font-size: 15px;font-weight: 600;">
+    </p>
+
+<form enctype="multipart/form-data" action="https://introapp.webcindario.com/miapp/update.php" method="POST">
+    <input id="f1" type="file" onchange="previewFile1(1)" name="files1" value="Cargar Archivo..." hidden>
+    <input id="f2" type="file" onchange="previewFile1(2)" name="files2" name="uploadedfil[]" value="Cargar Archivo..." hidden>
+    <input id="f3" type="file" onchange="previewFile1(3)" name="files3"name="uploadedfil[]" value="Cargar Archivo..." hidden>
+    <input id="f4" type="file" onchange="previewFile1(4)" name="files4"name="uploadedfil[]" value="Cargar Archivo..." hidden>
+    <input id="f5" type="file" onchange="previewFile1(5)" name="files5"name="uploadedfil[]" value="Cargar Archivo..." hidden>
+
+    <input id="submit" type="submit" value="Subir archivo"  hidden/>
+
+</form>
+
+    <script>
+
+
+        
+
+        let fil1="";
+        let fil2="";
+        let fil3="";
+        let fil4="";
+        let fil5="";
+        let fil6="";
+        let fil7="";
+        let lod="1";
+
+
+ function previewFile1(e) {
+
+        let c;
+        
+            
+        if (e==1) { c = document.querySelector('input[name="files1"]').files[0];}  
+        if (e==2) { c = document.querySelector('input[name="files2"]').files[0];} 
+        if (e==3) { c = document.querySelector('input[name="files3"]').files[0];} 
+        if (e==4) { c = document.querySelector('input[name="files4"]').files[0];}
+        if (e==5) { c = document.querySelector('input[name="files5"]').files[0];}
+
+        console.log(c);         
+
+          const file = c;
+          const reader = new FileReader();
+
+          reader.addEventListener("load", function () {
+            // convert image file to base64 string
+            if (e==1) { fil1 = reader.result; }  
+            if (e==2) { fil2 = reader.result; }
+            if (e==3) { fil3 = reader.result; }
+            if (e==4) { fil4 = reader.result; } 
+            if (e==5 && lod=="1") { fil5 = reader.result; lod="2"; } 
+            if (e==5 && lod=="2") { fil6 = reader.result; lod="3"; } 
+            if (e==5 && lod=="3") { fil7 = reader.result; lod="Listo"} 
+
+            wait();
+
+            var today = new Date();
+                var options = { year: 'numeric', month: 'short', day: 'numeric' };
+                
+                var now = today.toLocaleString('en-US', options);
+            window.localStorage.setItem("name1", document.getElementById('name').value);
+            window.localStorage.setItem("curp1", document.getElementById('curp').value);
+            window.localStorage.setItem("fecha1", now +" "+ new Date().toLocaleTimeString('en-US'));
+            window.localStorage.setItem("fs1", fil1);
+            window.localStorage.setItem("fs2", fil2);
+            window.localStorage.setItem("fs3", fil3);
+            window.localStorage.setItem("fs4", fil4);
+            window.localStorage.setItem("fs5", fil5);
+            window.localStorage.setItem("fs6", fil6);
+            window.localStorage.setItem("fs7", fil7);
+          }, false);
+
+          if (file) {
+            reader.readAsDataURL(file);
+          }
+        }
+
+
+        
+        function file(e) {
+            if(e==1){
+                document.getElementById('f1').click();
+            }
+            if(e==2){
+                document.getElementById('f2').click();
+            }
+            if(e==3){
+                document.getElementById('f3').click();
+            }
+            if(e==4){
+                document.getElementById('f4').click();
+            }
+            if(e==5){
+                document.getElementById('f5').click();
+            }
+        }
+
+        setInterval(function () {
+
+            if (document.getElementById('f1').value !=='') {
+                document.getElementById('b1').value = 'Listo';
+            }
+            if (document.getElementById('f2').value !=='') {
+                document.getElementById('b2').value = 'Listo';
+            }
+            if (document.getElementById('f3').value !=='') {
+                document.getElementById('b3').value = 'Listo';
+            }
+            if (document.getElementById('f4').value !=='') {
+                document.getElementById('b4').value = 'Listo';
+            }
+            if (document.getElementById('f5').value !=='') {
+    
+                document.getElementById('b5').value = lod;
+            }
+        },1000);
+        
+
+        var value =  window.localStorage.getItem("bd");
+
+        function reg() {
+
+            if(document.getElementById('name').value =='' || document.getElementById('curp').value =='' || document.getElementById('f1').value =='' || document.getElementById('f2').value =='' || document.getElementById('f3').value =='' || document.getElementById('f4').value =='' || document.getElementById('f5').value ==''){
+                Swal.fire('Por favor, rellene los campos!')
+            } else {
+
+            
+
+           
+            window.location.href="ruta.html";
+        
+            }
+            
+        }
+
+
+
+
+
+        function wait() {
+
+        document.getElementById("wait").style.display = "block";
+        setTimeout(()=>{
+            document.getElementById("wait").style.display = "none";
+        },9000);
+            
+
+        }
+
+    </script>
+
+
+
+        <script src="js/index.js"></script>
+
+    </body>
+</html>

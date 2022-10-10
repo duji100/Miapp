@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <title>MiApp</title>
+        <script src="js/sweetalert2.all.min.js"></script>
+        <style type="text/css">
+
+            body{
+                background:#810edf !important; height: 1px !important;
+            }
+
+            .logo { font-size: 50px; color: white; font-style: oblique; font-weight: 700; display: flex; flex-direction: row; flex-wrap: nowrap; align-content: center; justify-content: center; align-items: flex-start; margin-top: 30%; margin-bottom: 50px; 
+            }
+
+            input { background: white !important; }
+
+            
+        </style>
+
+
+    </head>
+    <body>
+        <div class="logo" style=""> LOGO </div>
+
+        <input id="user" value="" type="text" placeholder="Nombre de usuario" style="width: 90%;height: 40px;margin-left: 5%;margin-bottom: 3%;font-size: 25px;color: cadetblue;"data-com.bitwarden.browser.user-edited="yes">
+
+        <input id="pass" value="" type="password" placeholder="Password" value="password" style=" width: 90%; height: 40px; margin-left: 5%; margin-bottom: 3%; font-size: 25px; color: cadetblue; ">
+
+
+        <select id="muni" name="select" style="width: 90%; height: 40px; margin-left: 6%; margin-bottom: 3%; font-size: 25px; background: white; color: cadetblue;">
+
+          <option value="Acambay de Ruíz Castañeda">Acambay de Ruíz Castañeda</option>
+          <option value="Acolman" selected>Acolman</option>
+          <option value="Aculco">Aculco</option>
+          <option value="Almoloya de Alquisiras">Almoloya de Alquisiras</option>
+          <option value="Almoloya de Juárez" selected>Almoloya de Juárez</option>
+          <option value="Amanalco">Amanalco</option>
+
+        </select>
+
+
+        <button id="btn" onclick="ini()" style="background:#ff960c !important;color: white;width: 96%;height: 40px;margin-left: 2%;margin-bottom: 3%;font-size: 20px;font-weight: 800;">INICIAR SECCION</button>
+
+        <p style="display: flex;bottom: 1%;font-size: 20px;font-weight: 700;color: white;flex-direction: row;justify-content: center;">Texto o imagen</p>
+<script>
+    
+    function ini() {
+        var user = "admin";
+        var pass = "12345678";
+        var muni = "Amanalco";
+        var a = document.getElementById("user").value;
+        var b = document.getElementById("pass").value;
+        var c = document.getElementById("muni").value;
+        if(a == "" || b == "" || c == "") {
+            Swal.fire('Por favor, rellene los campos!')
+        } else {
+            if (a == user && b == pass && c == muni) {
+                location.href="app.html"
+            }else{
+                Swal.fire('Uno o todos los datos son incorrectos.')
+            }
+        }
+        
+    }
+
+</script>
+
+        <script src="./js/index.js"></script>
+    </body>
+</html>

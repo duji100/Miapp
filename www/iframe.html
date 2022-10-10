@@ -1,0 +1,80 @@
+<html>
+<head>
+    <style>
+        body {
+            background: #f1edf5;
+        }
+        p {
+    padding: 10px;
+    background: white;
+    height: 50px;
+    margin-bottom: 10px;
+    }
+    #n {
+        font-size: 30px;
+        background: antiquewhite;
+        padding: 10px;
+        width: 30px;
+        margin-top: 10px;
+    }
+    #name {
+        position: absolute;
+        margin-left: 20px;
+        margin-top: 11px;
+    }
+    #curp {
+        position: absolute;
+        padding-left: 21px;
+        margin-top: 31px;
+        font-size: small;
+    }
+    #date {
+        position: relative;
+        font-size: 10px;
+        margin-right: 12px;
+        float: right;
+        font-weight: bold;
+        margin-top: -2px;
+    }
+    </style>
+
+    <script> 
+        function getParameterByName(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+          return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+      
+
+      const json = getParameterByName('json');
+      let json1 = json.substr(0, json.length -1)+"]";
+      
+       </script>
+</head>
+<body>
+    <div id="datos"></div>
+
+    <script>
+
+    var json2 =  JSON.parse(window.localStorage.bd);
+    var html = '';
+    console.log(json2);
+    for(let i = 0; i < json2.length; i++) {
+
+        html += '<p>';
+            html += `<span id="n">${json2[i].nombre.charAt(0).toUpperCase()}</span>`;
+            html += `<span id="name">${json2[i].nombre.toUpperCase()}</span>`;
+            html += `<span id="curp">${json2[i].curp.toUpperCase()}</span>`;
+            html += `<span id="date">${json2[i].fechaRegistro}</span>`;
+        html += '</p>';
+
+    }
+    document.querySelector('#datos').innerHTML = html;
+ 
+    </script>
+    
+
+</body>
+</html>
+
