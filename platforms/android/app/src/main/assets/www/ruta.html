@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/sweetalert2.all.min.js"></script>
+    <title></title>
+    <style type="text/css">
+        body{
+  background: #810edf;
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.container div{
+  background: whitesmoke;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  float: left;
+  top: 40px;
+  position: relative;
+  margin-left: 10px;
+}
+
+.container div:nth-child(1),.container div:nth-child(3),.container div:nth-child(5){
+  animation: animateone 1s linear infinite;
+  top: 40px;
+}
+
+.container div:nth-child(2),.container div:nth-child(4){
+  animation: animatetwo 1s linear infinite;
+  top: -40px;
+}
+
+@keyframes animateone{
+  0%{
+    top:40px;
+    transform:scale(1);
+  }
+  50%{
+    top:-40px;
+    transform:scale(0.5);
+  }
+}
+
+@keyframes animatetwo{
+  0%,100%{
+    top:-40px;
+    transform:scale(0.5);
+  }
+  50%{
+    top:40px;
+    transform:scale(1);
+  }
+}
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<script type="text/javascript">
+
+
+setTimeout(function(){
+
+
+    var name =  window.localStorage.getItem("name1");
+    var curp =  window.localStorage.getItem("curp1");
+    var fecha =  window.localStorage.getItem("fecha1");
+    var fil1 =  window.localStorage.getItem("fs1");
+    var fil2 =  window.localStorage.getItem("fs2");
+    var fil3 =  window.localStorage.getItem("fs3");
+    var fil4 =  window.localStorage.getItem("fs4");
+    var fil5 =  window.localStorage.getItem("fs5");
+    var fil6 =  window.localStorage.getItem("fs6");
+    var fil7 =  window.localStorage.getItem("fs7");
+
+var Newjson = {"nombre": name ,"curp": curp,"fechaRegistro": fecha,"file1": fil1,"file2": fil2,"file3": fil3,"file4": fil4,"file5opt": fil5,"file6opt": fil6,"file7opt": fil7};
+
+var value =  window.localStorage.getItem("bd");
+
+if (window.localStorage.getItem("bd") == null) {
+    //Swal.fire('[0]Procesando...');
+    var xc = "["+JSON.stringify(Newjson)+"]";
+    window.localStorage.setItem("bd", JSON.stringify(JSON.parse(xc)));
+    location.href="app.html?alert=true";
+} else {
+    //Swal.fire('[1]Procesando...');
+    let newtxt = value.replace("[", "").replace("]","");
+    let newtxt1 = newtxt + ',' + JSON.stringify(Newjson);
+    let newtxt2 = "["+newtxt1+"]";
+    
+    window.localStorage.setItem("bd", newtxt2);
+    location.href="app.html?alert=true";
+}
+
+
+},35000);
+
+</script>
+
+</body>
+</html>
